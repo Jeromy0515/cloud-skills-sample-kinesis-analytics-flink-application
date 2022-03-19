@@ -55,6 +55,8 @@ mvn package -Dflink.version=1.13.2
       3. `CloudWatchFullAccess`
       4. `CloudWatchLogsFullAccess`
    
+4. Click on Run
+   
 ## How to Test
    1. Create EC2 Instance and Attach `AmazonKinesisFullAccess` Role
    2. Copy stock.py file to EC2
