@@ -1,4 +1,4 @@
-# 2022 클라우드 컴퓨팅 기능경기대회 제 2과제 Kinesis Data Analytics (Flink) 예제 코드
+# 2022 클라우드 컴퓨팅 지방기능경기대회 제 2과제 Kinesis Data Analytics (Flink) 예제 코드
 
 ## Document
 - <a href="https://docs.aws.amazon.com/ko_kr/kinesisanalytics/latest/java/examples-s3.html">Amazon Kinesis Data Analytics Docs</a>
