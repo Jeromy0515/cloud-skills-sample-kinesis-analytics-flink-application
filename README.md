@@ -64,3 +64,5 @@ mvn package -Dflink.version=1.13.2
       ```
       python3 stock.py 
       ```
+   4. Show Apache Flink Dashboard
+   5. Check S3 URI `s3://ka-app-<username>/data`
