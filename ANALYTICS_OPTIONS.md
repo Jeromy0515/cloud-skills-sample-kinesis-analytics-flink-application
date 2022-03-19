@@ -2,7 +2,7 @@
 
 ## Scaling
 ### Parallelism
-- specify the number of parallel task
+- specify the number of parallel tasks
 - Minimum: 1, Maximum: service limit
 
 ### Parallelism per KPU
