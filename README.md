@@ -24,6 +24,14 @@ private static final String s3SinkPath = "s3a://ka-app-<username>/data";
 ```
 
 ## Compile the Application Source Code
+Install maven, using this command
+```
+sudo wget http://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo -O /etc/yum.repos.d/epel-apache-maven.repo
+sudo sed -i s/\$releasever/6/g /etc/yum.repos.d/epel-apache-maven.repo
+sudo yum install -y apache-maven
+mvn --version
+```
+Compile the application source code, using this command
 ```
 mvn package -Dflink.version=1.13.2
 ```
