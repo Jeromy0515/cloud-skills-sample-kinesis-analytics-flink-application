@@ -13,6 +13,7 @@ def generate():
     f = open('app.log','w')
     while True:
         data = json.dumps(get_data())
+        print(data)
         f.write(data)
 
 if __name__ == '__main__':
