@@ -80,7 +80,7 @@ mvn package -Dflink.version=1.13.2
    1. Create EC2 instance for install Kinesis Agent
    2. Attach roles in applied role to EC2 instance
       1. `AmazonKinesisFullAccess`
-      2. `CloudWatchFullAccess`
+      2. `CloudWatchAgentServerPolicy`
    3. Install Kinesis Agent using this command
       ```
       yum install aws-kinesis-agent -y
