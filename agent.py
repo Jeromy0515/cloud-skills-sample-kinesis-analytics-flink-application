@@ -12,7 +12,7 @@ def get_data():
 def generate():
     f = open('app.log','w')
     while True:
-        data = json.dumps(data)
+        data = json.dumps(get_data())
         f.write(data)
 
 if __name__ == '__main__':
