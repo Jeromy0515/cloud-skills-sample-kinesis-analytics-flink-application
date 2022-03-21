@@ -8,9 +8,8 @@ def get_data():
         'TICKER': random.choice(['AAPL', 'AMZN', 'MSFT', 'INTC', 'TBV']),
         'PRICE': round(random.random() * 100, 2)}
 
-
 def generate():
-    f = open('app.log','w')
+    f = open('/tmp/app.log','w')
     while True:
         data = json.dumps(get_data())
         print(data)
