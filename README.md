@@ -68,7 +68,7 @@ mvn package -Dflink.version=1.13.2
 ## How to Test
 ### Test by using boto3
    1. Create EC2 Instance and Attach `AmazonKinesisFullAccess` Role
-   2. Copy stock.py file to EC2 instance
+   2. Copy [stock.py](https://github.com/Jeromy0515/cloud-skills-sample-kinesis-analytics-flink-application/blob/main/stock.py) file to EC2 instance
    3. Run stock.py using this command
       ```
       python3 stock.py 
@@ -105,7 +105,7 @@ mvn package -Dflink.version=1.13.2
       ```
       systemctl start aws-kinesis-agent
       ```
-   6. Copy agent.py file to EC2 instance. path = `/tmp/agent.py` 
+   6. Copy [agent.py](https://github.com/Jeromy0515/cloud-skills-sample-kinesis-analytics-flink-application/blob/main/agent.py) file to EC2 instance. path = `/tmp/agent.py` 
    7. Change directory path = `/tmp`
    8. Run `agent.py` using this command
       ```
