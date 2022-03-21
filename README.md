@@ -101,11 +101,19 @@ mvn package -Dflink.version=1.13.2
          ]
       }
       ```
-   5. Copy agent.py file to EC2 instance. path = `/tmp/agent.py` 
-   6. Change directory path = `/tmp`
-   7. Run `agent.py` using this command
+   5. Run Kinesis Agent using this command
+      ```
+      systemctl start aws-kinesis-agent
+      ```
+   6. Copy agent.py file to EC2 instance. path = `/tmp/agent.py` 
+   7. Change directory path = `/tmp`
+   8. Run `agent.py` using this command
       ```
       python3 agent.py
       ```
-   8. Show Apache Flink Dashboard
-   9. Check S3 URI `s3://ka-app-<username>/data`
+   9.  Check Kinesis Agent's logs using this command
+       ```
+       tail -f /var/log/aws-kinesis-agent/aws-kinesis-agent.log
+       ```
+   10. Show Apache Flink Dashboard
+   11. Check S3 URI `s3://ka-app-<username>/data`
