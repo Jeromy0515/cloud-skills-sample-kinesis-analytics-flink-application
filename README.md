@@ -57,7 +57,7 @@ mvn package -Dflink.version=1.13.2
 
    3-5. Click Save Change 
 
-   3-6. Attach Role in `kinesis-analytics-YourApplicationName-us-east-1`
+   3-6. Attach roles in `kinesis-analytics-YourApplicationName-us-east-1`
       1. `AmazonS3FullAccess`
       2. `AmazonKinesisFullAccess`
       3. `CloudWatchFullAccess`
@@ -66,6 +66,7 @@ mvn package -Dflink.version=1.13.2
 4. Click on Run
    
 ## How to Test
+### Test by using boto3
    1. Create EC2 Instance and Attach `AmazonKinesisFullAccess` Role
    2. Copy stock.py file to EC2 instance
    3. Run stock.py using this command
@@ -74,3 +75,37 @@ mvn package -Dflink.version=1.13.2
       ```
    4. Show Apache Flink Dashboard
    5. Check S3 URI `s3://ka-app-<username>/data`
+
+### Test by using Kinesis Agent
+   1. Create EC2 instance for install Kinesis Agent
+   2. Attach roles in applied role to EC2 instance
+      1. `AmazonKinesisFullAccess`
+      2. `CloudWatchFullAccess`
+   3. Install Kinesis Agent using this command
+      ```
+      yum install aws-kinesis-agent -y
+      ```
+   4. Configure `/etc/aws-kinesis/agent.json` like this
+      ```
+      {
+         "cloudwatch.emitMetrics": true,
+         "kinesis.endpoint": "https://kinesis.us-east-1.amazonaws.com",
+         "firehose.endpoint": "",
+         
+         "flows": [
+            {
+            "filePattern": "/tmp/*.log",
+            "kinesisStream": "ExampleInputStream",
+            "partitionKeyOption": "RANDOM"
+            }
+         ]
+      }
+      ```
+   5. Copy agent.py file to EC2 instance. path = `/tmp/agent.py` 
+   6. Change directory path = `/tmp`
+   7. Run `agent.py` using this command
+      ```
+      python3 agent.py
+      ```
+   8. Show Apache Flink Dashboard
+   9. Check S3 URI `s3://ka-app-<username>/data`
