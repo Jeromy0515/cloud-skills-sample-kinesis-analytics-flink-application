@@ -96,9 +96,9 @@ mvn package -Dflink.version=1.13.2
          
          "flows": [
             {
-            "filePattern": "/tmp/*.log",
-            "kinesisStream": "ExampleInputStream",
-            "partitionKeyOption": "RANDOM"
+                "filePattern": "/tmp/*.log",
+                "kinesisStream": "ExampleInputStream",
+                "partitionKeyOption": "RANDOM"
             }
          ]
       }
