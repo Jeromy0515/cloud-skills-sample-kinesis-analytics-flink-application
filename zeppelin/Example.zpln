@@ -27,7 +27,7 @@
    "progressUpdateIntervalMs": 500,
    "focus": true,
    "$$hashKey": "object:394",
-   "text": "%flink.ssql\n\nDROP TABLE IF EXISTS stock_table;\n\nCREATE TABLE stock_table (\n    `event_time` TIMESTAMP(3),\n    `ticker` VARCHAR(4),\n    `price` FLOAT\n)\nWITH (\n    'connector' = 'kinesis',\n    'stream' = 'ExampleInputStream',\n    'aws.region' = 'us-east-1',\n    'scan.stream.initpos' = 'LATEST',\n    'format' = 'json'\n)\n\n## {'EVENT_TIME': '2022-03-24T00:34:28.523466', 'TICKER': 'AMZN', 'PRICE': 27.27}\n"
+   "text": "%flink.ssql\n\nDROP TABLE IF EXISTS stock_table;\n\nCREATE TABLE stock_table (\n    `event_time` TIMESTAMP(3),\n    `ticker` VARCHAR(4),\n    `price` FLOAT\n)\nWITH (\n    'connector' = 'kinesis',\n    'stream' = 'ExampleInputStream',\n    'aws.region' = 'us-east-1',\n    'scan.stream.initpos' = 'LATEST',\n    'format' = 'json'\n)\n"
   },
   {
    "settings": {
