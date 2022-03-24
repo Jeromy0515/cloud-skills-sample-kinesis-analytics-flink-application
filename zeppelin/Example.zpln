@@ -1,0 +1,76 @@
+﻿{
+ "paragraphs": [
+  {
+   "user": "anonymous",
+   "config": {
+    "colWidth": 12,
+    "fontSize": 9,
+    "enabled": true,
+    "results": {},
+    "editorSetting": {
+     "language": "scala",
+     "editOnDblClick": false,
+     "completionKey": "TAB",
+     "completionSupport": true
+    },
+    "editorMode": "ace/mode/scala"
+   },
+   "settings": {
+    "params": {},
+    "forms": {}
+   },
+   "apps": [],
+   "jobName": "paragraph_1563110258183_1613653816",
+   "id": "20190714-161738_1950435706",
+   "dateCreated": "2019-07-14T16:17:38+0300",
+   "status": "READY",
+   "progressUpdateIntervalMs": 500,
+   "focus": true,
+   "$$hashKey": "object:394",
+   "text": "%flink.ssql\n\nDROP TABLE IF EXISTS stock_table;\n\nCREATE TABLE stock_table (\n    `event_time` TIMESTAMP(3),\n    `ticker` VARCHAR(4),\n    `price` FLOAT\n)\nWITH (\n    'connector' = 'kinesis',\n    'stream' = 'ExampleInputStream',\n    'aws.region' = 'us-east-1',\n    'scan.stream.initpos' = 'LATEST',\n    'format' = 'json'\n)\n\n## {'EVENT_TIME': '2022-03-24T00:34:28.523466', 'TICKER': 'AMZN', 'PRICE': 27.27}\n"
+  },
+  {
+   "settings": {
+    "params": {},
+    "forms": {}
+   },
+   "apps": [],
+   "status": "READY",
+   "text": "%flink.ssql(type=update)\n\nSELECT * FROM stock_table\n\n",
+   "config": {}
+  },
+  {
+   "settings": {
+    "params": {},
+    "forms": {}
+   },
+   "apps": [],
+   "status": "READY",
+   "text": "%flink.ssql(type=update)\n\n DROP TABLE IF EXISTS s3_sink_table;\n \n CREATE TABLE s3_sink_table(\n    `event_time` TIMESTAMP(3),\n    `ticker` VARCHAR(4),\n    `price` FLOAT\n )\n WITH(\n    'connector' = 'filesystem',\n    'path' = 's3://ka-app-pmj/data',\n    'format' = 'csv'\n )\n",
+   "id": "",
+   "config": {}
+  },
+  {
+   "settings": {
+    "params": {},
+    "forms": {}
+   },
+   "apps": [],
+   "status": "READY",
+   "text": "%flink.ssql(type=update)\nINSERT INTO stock_table SELECT * FROM s3_sink_table\n\n",
+   "id": "",
+   "config": {}
+  }
+ ],
+ "name": "Zeppelin Notebook",
+ "id": "",
+ "noteParams": {},
+ "noteForms": {},
+ "angularObjects": {},
+ "config": {
+  "isZeppelinNotebookCronEnable": false,
+  "looknfeel": "default",
+  "personalizedMode": "false"
+ },
+ "info": {}
+}
