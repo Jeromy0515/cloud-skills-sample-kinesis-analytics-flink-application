@@ -34,9 +34,10 @@ CREATE TABLE Orders (
 ```
 `- INTERVAL '5' SECOND` : 딜레이(5초)를 제거한 타임스탬프를 찍기 위함 
 
+## PARTITIONED BY
+Partition the created table by the specified columns. A directory is created for each partition if this table is used as a filesystem sink
 
 ## WITH OPTIONS
-
 ### [Formats](https://nightlies.apache.org/flink/flink-docs-master/docs/connectors/table/formats/overview/#formats)
 
 ### Amazon Kinesis Data Streams
