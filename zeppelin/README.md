@@ -37,6 +37,9 @@ CREATE TABLE Orders (
 ## PARTITIONED BY
 Partition the created table by the specified columns. A directory is created for each partition if this table is used as a filesystem sink
 
+PARTITIONED BY 를 통해 테이블을 생성한 경우 Task를 수행할 때 PartitionCommitter 가 생성되고 PartitionCommitter가 Partition Key로 데이터를 한번 필터링 하여 스토리지에 적재함
+
+`sink.partition-commit.policy.kind`, `sink.partition-commit.delay` 과 같은 옵션들은 PARTITIONED BY 를 통해 PartitionCommitter가 생성되어야지만 의미있음
 ## WITH OPTIONS
 ### [Formats](https://nightlies.apache.org/flink/flink-docs-master/docs/connectors/table/formats/overview/#formats)
 
@@ -68,6 +71,7 @@ WITH (
 
 [Streaming Sink](https://nightlies.apache.org/flink/flink-docs-master/docs/connectors/table/filesystem/#streaming-sink)
 
+[FileSystem SQL Connector](https://nightlies.apache.org/flink/flink-docs-master/docs/connectors/table/filesystem/#filesystem-sql-connector)
 #### required options
 - 'connector' = `'filesystem''`
 - 'path' = `'s3://path/to/whatever'`
@@ -82,5 +86,35 @@ WITH (
   'connector' = 'filesystem',           
   'path' = 's3://path/to/whatever',     
   'format' = '...',                    
+)
+```
+
+## About CheckPoint
+- [Enabling and Configuring Checkpointing](https://nightlies.apache.org/flink/flink-docs-master/docs/dev/datastream/fault-tolerance/checkpointing/#enabling-and-configuring-checkpointing)
+- [The FileSystemCheckpointStorage](https://nightlies.apache.org/flink/flink-docs-master/docs/ops/state/checkpoints/#the-filesystemcheckpointstorage)
+- [Checkpointing](https://nightlies.apache.org/flink/flink-docs-master/docs/concepts/stateful-stream-processing/#checkpointing)
+- [Fixed Delay Restart Strategy](https://nightlies.apache.org/flink/flink-docs-master/docs/concepts/stateful-stream-processing/#checkpointing)
+
+### How to Configure
+```
+%flink.pyflink
+st_env.get_config().get_configuration().set_string(
+    "restart-strategy", "fixed-delay"
+)
+
+st_env.get_config().get_configuration().set_string(
+    "restart-strategy.fixed-delay.attempts", "3"
+)
+
+st_env.get_config().get_configuration().set_string(
+    "restart-strategy.fixed-delay.delay", "30s"
+)
+
+st_env.get_config().get_configuration().set_string(
+    "execution.checkpointing.mode", "EXACTLY_ONCE" -- "EXACTLY_ONCE" OR "AT_LEAST_ONCE"   
+)
+
+st_env.get_config().get_configuration().set_string(
+    "execution.checkpointing.interval", "1min"    
 )
 ```

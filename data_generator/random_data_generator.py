@@ -2,6 +2,7 @@ import datetime
 import json
 import random
 import boto3
+import time
 
 STREAM_NAME = "my-input-stream"
 
@@ -24,6 +25,7 @@ def get_random_data():
 
 def send_data(stream_name, kinesis_client):
     while True:
+        time.sleep(1)
         data = get_random_data()
         partition_key = str(data["sensor_id"])
         print(data)

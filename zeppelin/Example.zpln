@@ -56,7 +56,7 @@
    },
    "apps": [],
    "status": "READY",
-   "text": "%flink.ssql(type=update)\n\nDROP TABLE IF EXISTS s3_sink_table;\n \nCREATE TABLE s3_sink_table(\n    `TICKER` VARCHAR(4),\n    `EVENT_TIME` TIMESTAMP(3),\n    `PRICE` FLOAT\n)\nPARTITIONED BY(TICKER)\nWITH (\n    'connector' = 'filesystem',\n    'path' = 's3://ka-app-pmj/data',\n    'format' = 'json',\n    'sink.partition-commit.policy.kind'='success-file',\n    'sink.partition-commit.delay' = '1 min'\n)",
+   "text": "%flink.ssql(type=update)\n\nDROP TABLE IF EXISTS s3_sink_table;\n \nCREATE TABLE s3_sink_table(\n    `TICKER` VARCHAR(4),\n    `EVENT_TIME` TIMESTAMP(3),\n    `PRICE` FLOAT\n)\nPARTITIONED BY(TICKER)\nWITH (\n    'connector' = 'filesystem',\n    'path' = 's3://ka-app-pmj/data',\n    'format' = 'json',\n    'sink.partition-commit.policy.kind'='success-file', -- sink 성공시 '_SUCCESS' 파일 같이 업로드 PARTITIONED BY 랑 짝궁 \n    'sink.partition-commit.delay' = '1 min' -- 왜 쓰는지 잘 모름 PARTITIONED BY 랑 짝궁\n)",
    "id": "",
    "config": {}
   },
