@@ -4,7 +4,7 @@ import random
 import boto3
 import time
 
-STREAM_NAME = "my-input-stream"
+STREAM_NAME = "ExampleInputStream"
 
 
 def get_random_data():
