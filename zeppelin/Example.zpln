@@ -78,7 +78,18 @@
    },
    "apps": [],
    "status": "READY",
-   "text": "%flink.ssql(type=update)\nINSERT INTO s3_sink_table SELECT * FROM stock_table\n",
+   "text": "%flink.ssql(type=update)\nINSERT INTO s3_sink_table\n SELECT * \n FROM stock_table\n",
+   "id": "",
+   "config": {}
+  },
+  {
+   "settings": {
+    "params": {},
+    "forms": {}
+   },
+   "apps": [],
+   "status": "READY",
+   "text": "%flink.ssql(type=update)\nINSERT INTO s3_sink_table \nPARTITION(TICKER='MSFT')\nSELECT EVENT_TIME, PRICE \nFROM stock_table\n",
    "id": "",
    "config": {}
   }
