@@ -141,7 +141,7 @@
    },
    "apps": [],
    "status": "READY",
-   "text": "%flink.ssql(type=update)\n\nSELECT TICKER, COUNT(*) AS `COUNT`, window_start, window_end \nFROM TABLE(\n    HOP(TABLE stock_table, EVENT_TIME, INTERVAL '15' SECOND, INTERVAL '30' SECOND) \n)\nGROUP BY TICKER, window_start, window_end",
+   "text": "%flink.ssql(type=update)\n\nSELECT TICKER, COUNT(*) AS `COUNT`, window_start, window_end \nFROM TABLE(\n    HOP(TABLE stock_table, DESCRIPTOR(EVENT_TIME), INTERVAL '15' SECOND, INTERVAL '30' SECOND) \n)\nGROUP BY TICKER, window_start, window_end",
    "id": "",
    "config": {}
   },

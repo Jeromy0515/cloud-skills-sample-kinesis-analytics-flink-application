@@ -152,7 +152,7 @@ usage : HOP(TABLE data, DESCRIPTOR(timecol), slide, size [, offset ])
 
 SELECT TICKER, COUNT(*) AS `COUNT`, window_start, window_end 
 FROM TABLE(
-    HOP(TABLE stock_table, EVENT_TIME, INTERVAL '15' SECOND, INTERVAL '30' SECOND) 
+    HOP(TABLE stock_table, DESCRIPTOR(EVENT_TIME), INTERVAL '15' SECOND, INTERVAL '30' SECOND) 
 )
 GROUP BY TICKER, window_start, window_end
 ```
