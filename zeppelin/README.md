@@ -122,6 +122,8 @@ st_env.get_config().get_configuration().set_string(
 ## Time Series Analysis
 
 Windowing table-valued functions(<b>Windowing TVFs</b>) return cols `window_start`, `window_end`
+
+[Window Offset](https://nightlies.apache.org/flink/flink-docs-master/docs/dev/table/sql/queries/window-tvf/#window-offset)
 ### TUMBLE
 ```
 usage : TUMBLE(TABLE data, DESCRIPTOR(timecol), size [, offset ])
