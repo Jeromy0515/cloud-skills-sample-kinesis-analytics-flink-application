@@ -121,8 +121,7 @@ st_env.get_config().get_configuration().set_string(
 
 ## Time Series Analysis
 
-return cols `window_start`, `window_end`
-
+Windowing table-valued functions(<b>Windowing TVFs</b>) return cols `window_start`, `window_end`
 ### TUMBLE
 ```
 usage : TUMBLE(TABLE data, DESCRIPTOR(timecol), size [, offset ])
