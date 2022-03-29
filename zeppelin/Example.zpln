@@ -92,6 +92,79 @@
    "text": "%flink.ssql(type=update)\nINSERT INTO s3_sink_table \nPARTITION(TICKER='MSFT')\nSELECT EVENT_TIME, PRICE \nFROM stock_table\n",
    "id": "",
    "config": {}
+  },
+  {
+   "settings": {
+    "params": {},
+    "forms": {}
+   },
+   "apps": [],
+   "status": "READY",
+   "config": {},
+   "text": "%md\n## Time Series Analytics"
+  },
+  {
+   "settings": {
+    "params": {},
+    "forms": {}
+   },
+   "apps": [],
+   "status": "READY",
+   "text": "%flink.ssql\n\nDROP TABLE IF EXISTS stock_table;\n\nCREATE TABLE stock_table (\n    `TICKER` VARCHAR(4),\n    `EVENT_TIME` TIMESTAMP(3),\n    `PRICE` FLOAT,\n    WATERMARK FOR `EVENT_TIME` AS `EVENT_TIME` - INTERVAL '1' MINUTE\n)\nWITH (\n    'connector' = 'kinesis',\n    'stream' = 'ExampleInputStream',\n    'aws.region' = 'us-east-1',\n    'format' = 'json',\n    'json.timestamp-format.standard' = 'ISO-8601'\n)\n",
+   "id": "",
+   "config": {}
+  },
+  {
+   "settings": {
+    "params": {},
+    "forms": {}
+   },
+   "apps": [],
+   "status": "READY",
+   "config": {},
+   "text": "%flink.ssql(type=update)\n\nSELECT TICKER, COUNT(*) AS `COUNT` \nFROM stock_table \nGROUP BY TICKER, HOP(EVENT_TIME, INTERVAL '25' SECOND, INTERVAL '30' SECOND)\n"
+  },
+  {
+   "settings": {
+    "params": {},
+    "forms": {}
+   },
+   "apps": [],
+   "status": "READY",
+   "text": "%flink.ssql(type=update)\n\nSELECT TICKER, COUNT(*), window_start, window_end\nFROM TABLE(\n    TUMBLE(TABLE stock_table, DESCRIPTOR(EVENT_TIME), INTERVAL '1' MINUTE)\n)\nGROUP BY TICKER, window_start, window_end",
+   "config": {}
+  },
+  {
+   "settings": {
+    "params": {},
+    "forms": {}
+   },
+   "apps": [],
+   "status": "READY",
+   "text": "%flink.ssql(type=update)\n\nSELECT TICKER, COUNT(*) AS `COUNT`, window_start, window_end \nFROM TABLE(\n    HOP(TABLE stock_table, EVENT_TIME, INTERVAL '15' SECOND, INTERVAL '30' SECOND) \n)\nGROUP BY TICKER, window_start, window_end",
+   "id": "",
+   "config": {}
+  },
+  {
+   "settings": {
+    "params": {},
+    "forms": {}
+   },
+   "apps": [],
+   "status": "READY",
+   "text": "%flink.ssql\n\nDROP TABLE IF EXISTS s3_sink_table;\n\nCREATE TABLE s3_sink_table(\n    `TICKER` VARCHAR(4),\n    `COUNT` BIGINT NOT NULL\n)\nWITH(\n    'connector' = 'filesystem',\n    'path' = 's3a://ka-app-pmj/data',\n    'format' = 'json'\n)",
+   "id": "",
+   "config": {}
+  },
+  {
+   "settings": {
+    "params": {},
+    "forms": {}
+   },
+   "apps": [],
+   "status": "READY",
+   "config": {},
+   "text": "%flink.ssql(type=update, parallelism=1)\n\nINSERT INTO s3_sink_table \nSELECT TICKER, COUNT(*) AS `COUNT` \nFROM stock_table \nGROUP BY TICKER, HOP(EVENT_TIME, INTERVAL '25' SECOND, INTERVAL '30' SECOND)\n\n"
   }
  ],
  "name": "Zeppelin Notebook",

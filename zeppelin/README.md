@@ -118,3 +118,40 @@ st_env.get_config().get_configuration().set_string(
     "execution.checkpointing.interval", "1min"    
 )
 ```
+
+## Time Series Analysis
+
+return cols `window_start`, `window_end`
+
+### TUMBLE
+```
+usage : TUMBLE(TABLE data, DESCRIPTOR(timecol), size [, offset ])
+```
+#### Example
+- Window Size = 60s
+```
+%flink.ssql(type=update)
+
+SELECT TICKER, COUNT(*), window_start, window_end
+FROM TABLE(
+    TUMBLE(TABLE stock_table, DESCRIPTOR(EVENT_TIME), INTERVAL '1' MINUTE)
+)
+GROUP BY TICKER, window_start, window_end
+
+```
+### HOP
+```
+usage : HOP(TABLE data, DESCRIPTOR(timecol), slide, size [, offset ])
+```
+#### Example 
+- Window Size = 30s
+- Sliding Time = 15s
+```
+%flink.ssql(type=update)
+
+SELECT TICKER, COUNT(*) AS `COUNT`, window_start, window_end 
+FROM TABLE(
+    HOP(TABLE stock_table, EVENT_TIME, INTERVAL '15' SECOND, INTERVAL '30' SECOND) 
+)
+GROUP BY TICKER, window_start, window_end
+```
