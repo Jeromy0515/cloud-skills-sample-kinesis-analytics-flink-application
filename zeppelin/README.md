@@ -147,6 +147,8 @@ usage : HOP(TABLE data, DESCRIPTOR(timecol), slide, size [, offset ])
 #### Example 
 - Window Size = 30s
 - Sliding Time = 15s
+
+슬라이딩 크기는 윈도우 사이즈의 절반을 넘어갈 수 없다.
 ```
 %flink.ssql(type=update)
 
