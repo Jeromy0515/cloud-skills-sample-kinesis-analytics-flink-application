@@ -158,3 +158,30 @@ FROM TABLE(
 )
 GROUP BY TICKER, window_start, window_end
 ```
+
+## Set Server Time Zone
+set table local time zone, using this command
+```
+%flink.ssql
+
+SET table.local-time-zone = 'Asia/Seoul'
+```
+
+set time zone in EC2 instance, using this command
+```
+timedatectl
+timedatectl list-timezones
+sudo timedatectl set-timezone Asia/Seoul
+```
+
+set time zone by using `localtimestamp`
+```
+CREATE TABLE stock_table(
+    `EVENT_TIME` AS LOCALTIMESTAMP + INTERVAL '9' HOUR
+)
+WITH(
+.
+.
+.
+)
+```
